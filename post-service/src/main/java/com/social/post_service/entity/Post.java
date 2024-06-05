@@ -1,9 +1,9 @@
+package com.social.post_service.entity;
+
 import jakarta.persistence.*;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,14 +18,12 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Length
-    @org.hibernate.validator.constraints.URL
     @Column(name = "post_url")
     @Lob
     private String postUrl;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "user_name")
+    private String userName;
 
     private String listOfTags;
 
@@ -33,11 +31,9 @@ public class Post {
     @Lob
     private String description;
 
-    @PositiveOrZero
     @Column(name = "like_count")
     private Integer likeCount;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<Comment> comments;
-
+    private List<PostComment> comments;
 }
